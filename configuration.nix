@@ -24,6 +24,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "m9eid";
+  networking.networkmanager.enable = true;
 
   fileSystems."/".options = ["noatime" "nodiratime" "discard"];
 
@@ -36,6 +37,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
+  # networking.interfaces.enp0s13f0u3u2u1.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
