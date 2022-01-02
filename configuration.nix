@@ -23,12 +23,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "m9eid"; # Define your hostname.
+  networking.hostName = "m9eid";
 
   fileSystems."/".options = ["noatime" "nodiratime" "discard"];
 
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -37,7 +36,6 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp0s20f0u4u2u1.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -52,49 +50,24 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
   services.fprintd.enable = true;
 
-  # Enable the GNOME Desktop Environment.
+  # Enable the Plasma desktop environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.xmonad = {
-    enable = false;
-    enableContribAndExtras = true;
-  };
-  services.xserver.windowManager.i3 = {
-    enable = true;
-    extraPackages = with pkgs; [
-      dmenu
-      i3status
-      i3lock
-    ];
-  };
-
-  # Configure keymap in X11
-  # services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
 
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.emilyb = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   
   nixpkgs.config.allowUnfree = true;
+
   environment.systemPackages = with pkgs; [
     git
     just
@@ -230,27 +203,6 @@
     #   terminal = "${pkgs.alacritty}/bin/alacritty";
     # };
   };
-
-  services.picom = {
-    enable = false;
-    activeOpacity = 1.0;
-    inactiveOpacity = 0.9;
-    backend = "glx";
-    fade = true;
-    fadeDelta = 5;
-    shadow = true;
-    shadowOpacity = 0.8;
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
