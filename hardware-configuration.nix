@@ -9,46 +9,25 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "dm-snapshot" ];
   boot.kernelModules = [ "kvm-intel" ];
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
   boot.extraModulePackages = [ ];
 
-  services.xserver = {
-    # videoDrivers = [ "modesetting" ];
-    # useGlamor = true;
-    # videoDrivers = [ "intel" ];
-    # deviceSection = ''
-    # 	Option "DRI" "2"
-    #	Option "TearFree" "true"
-    # '';
+  boot.initrd.luks.devices = {
+    root = {
+      device = "/dev/disk/by-uuid/2b670946-aa9e-4d02-bb3b-e42c36b70a1b";
+      preLVM = true;
+      allowDiscards = true; 
+    };
   };
 
-  # hardware.opengl = {
-  #  enable = true;
-  #  extraPackages = with pkgs; [
-  #    intel-media-driver 
-  #    vaapiIntel
-  #    vaapiVdpau
-  #    libvdpau-va-gl
-  #  ];
-  # };
-
-  hardware.opengl.extraPackages = with pkgs; [
-    mesa_drivers
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
-    intel-media-driver
-  ];
-
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/ba8f890b-bc26-4b5a-b9fd-f987752919ac";
+    { device = "/dev/disk/by-uuid/2b121635-d3c1-47e8-97ed-9056f7a4fde9";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/2262-63D2";
+    { device = "/dev/disk/by-uuid/BE5B-C154";
       fsType = "vfat";
     };
 
