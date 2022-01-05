@@ -16,7 +16,8 @@
     MOZ_ENABLE_WAYLAND = "1";
     OBSIDIAN_USE_WAYLAND = "1";
     XDG_CURRENT_DESKTOP = "sway";
-    SDL_VIDEODRIVER= "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -66,6 +67,7 @@
   users.users.emilyb = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    shell = pkgs.fish;
   };
   
   nixpkgs.config.allowUnfree = true;
@@ -208,6 +210,13 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  services.syncthing = {
+    enable = true;
+    user = "emilyb";
+    dataDir = "/home/emilyb/Sync";
+    configDir = "/home/emilyb/.config/syncthing";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
